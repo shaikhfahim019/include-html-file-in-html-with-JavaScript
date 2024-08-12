@@ -1,5 +1,44 @@
 Include html file in html with javascript and include one HTML page within another HTML, you have a few options depending on the context and the functionality you need.  Here’s how you can do it:
 
+Only AJAX and JavaScript method are working as a include fucntion.
+
+### 1. **Using JavaScript (AJAX)**
+
+You can use JavaScript to load and insert the content of one HTML file into another dynamically. This method is useful for single-page applications or dynamic content loading.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent Page</title>
+    <style>
+        #content {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+    <script>
+        function loadContent() {
+            fetch('child.html')
+                .then(response => response.text())
+                .then(data => document.getElementById('content').innerHTML = data);
+        }
+        window.onload = loadContent;
+    </script>
+</head>
+<body>
+    <h1>Parent Page</h1>
+    <div id="content">
+        <!-- Content from child.html will be loaded here -->
+    </div>
+</body>
+</html>
+```
+
+**Note:** This method requires the server to support CORS (Cross-Origin Resource Sharing) if the files are on different domains.
+
 
 ### 1. **Using `<iframe>`**
 
@@ -74,41 +113,5 @@ If you're working on a server that supports Server-Side Includes, you can use th
 
 **Note:** SSI requires server-side configuration and may not work on all servers.
 
-### 4. **Using JavaScript (AJAX)**
-
-You can use JavaScript to load and insert the content of one HTML file into another dynamically. This method is useful for single-page applications or dynamic content loading.
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parent Page</title>
-    <style>
-        #content {
-            width: 100%;
-            height: auto;
-        }
-    </style>
-    <script>
-        function loadContent() {
-            fetch('child.html')
-                .then(response => response.text())
-                .then(data => document.getElementById('content').innerHTML = data);
-        }
-        window.onload = loadContent;
-    </script>
-</head>
-<body>
-    <h1>Parent Page</h1>
-    <div id="content">
-        <!-- Content from child.html will be loaded here -->
-    </div>
-</body>
-</html>
-```
-
-**Note:** This method requires the server to support CORS (Cross-Origin Resource Sharing) if the files are on different domains.
 
 Choose the method that best fits your use case and the capabilities of your server or environment.
